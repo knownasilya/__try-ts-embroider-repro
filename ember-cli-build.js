@@ -1,10 +1,22 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const tailwind = require('tailwindcss');
+const autoprefixer = require('autoprefixer');
+
+const plugins = {
+  before: [],
+  after: [
+    tailwind('./app/tailwind/config.js'),
+    autoprefixer('last 2 versions'),
+  ],
+};
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
-    // Add options here
+    cssModules: {
+      plugins: plugins,
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -25,10 +37,5 @@ module.exports = function (defaults) {
     staticAddonTestSupportTrees: true,
     staticAddonTrees: true,
     staticHelpers: true,
-    // staticComponents: true,
-    // splitAtRoutes: ['deliver', 'manage'],
-    // packagerOptions: {
-    //    webpackConfig: { }
-    // },
   });
 };
